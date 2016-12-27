@@ -5,6 +5,7 @@
 #include <vector>
 #include <math.h>
 #include <QDebug>
+#define M_PI 3.14159265358979323846
 using namespace std;
 template <class Type> struct Point3d
 {
@@ -35,6 +36,9 @@ public:
 
 public:
     vector<Point3d<double> > In_points;         //输入的地面目标点集
+    Point3d<double> Mercator2WGS(Point3d<double> inPoint); //WGS84坐标系转为web墨卡托
+    Point3d<double> WGS2Mercator(Point3d<double> inPoint); //web墨卡托转为WGS84
+
 private:
     double D2R(double deg);            //角度值转弧度值
 //***************************需要输入的参数********************************************
