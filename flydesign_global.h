@@ -1,0 +1,12 @@
+#ifndef FLYDESIGN_GLOBAL_H
+#define FLYDESIGN_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(FLYDESIGN_LIBRARY)
+#  define FLYDESIGNSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define FLYDESIGNSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // FLYDESIGN_GLOBAL_H
