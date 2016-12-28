@@ -9,7 +9,7 @@ double FlyDesign::D2R(double deg){
 return deg / 180.0 * M_PI;
 }
 
-Point3d<double> FlyDesign::Mercator2WGS(Point3d<double> inPoint){
+Point3d<double> FlyDesign::WGS2Mercator(Point3d<double> inPoint){
     Point3d<double> result;
     result.z = inPoint.z;
     double const MaxSize = 20037508.900383711000000;
@@ -19,7 +19,7 @@ Point3d<double> FlyDesign::Mercator2WGS(Point3d<double> inPoint){
     return result;
 }
 
-Point3d<double> FlyDesign::WGS2Mercator(Point3d<double> inPoint){
+Point3d<double> FlyDesign::Mercator2WGS(Point3d<double> inPoint){
     Point3d<double> result;
     result.z = inPoint.z;
     double const MaxSize = 20037508.900383711000000;
@@ -172,85 +172,6 @@ bool FlyDesign::OutCoverBeam(const double& sita_,vector<vector<Point3d<double> >
         Cover_beam_near.push_back(near_line);
         Cover_beam_far.push_back(far_line);
     }
-
-
-
-
-
-
-
-
-
-
-
-//    for(size_t i=1;i<In_points.size();i++)
-//    {
-//        double L1 = (H*(tan(D2R(90-fi))-tan(D2R(90-fi-0.5*sita))));
-//        double L2 = (H*(tan(D2R(90-fi+0.5*sita))-tan(D2R(90-fi))));
-//        double deta_Y1,deta_Y2,deta_X1,deta_X2;
-//        if(In_points[i].y==In_points[i-1].y&&In_points[i].x!=In_points[i-1].x)
-//        {
-//            deta_Y1=L1*csfs;
-//            deta_Y2=L2*csfs;
-//            deta_X1=deta_X2=0;
-//        }
-//        else if(In_points[i].x==In_points[i-1].x&&In_points[i].y!=In_points[i-1].y)
-//        {
-//            deta_X1=L1*csfs;
-//            deta_X2=L2*csfs;
-//            deta_Y1=deta_Y2=0;
-//        }
-
-//        else if(In_points[i].x==In_points[i-1].x&&In_points[i].y==In_points[i-1].y)
-//        {
-//            flag=false;
-//            return false;
-//        }
-//        else
-//        {
-//            double tanAlpha = (In_points[i].y-In_points[i-1].y)/(In_points[i].x-In_points[i-1].x);
-//            deta_Y1=abs(L1*cos(atan(tanAlpha)))*csfs;
-//            deta_Y2=abs(L2*cos(atan(tanAlpha)))*csfs;
-//            deta_x1=abs(L1*sin(atan(tanAlpha)))*csfs;
-//            deta_x2=abs(L2*sin(atan(tanAlpha)))*csfs;
-//        }
-//        int xd=In_points[i-1].x<In_points[i].x?1:-1;
-//        int yd=In_points[i-1].y<In_points[i].y?1:-1;
-//        vector<Point3d<double> > near_temp;
-//        vector<Point3d<double> > far_temp;
-//        for(size_t j=0;j<Direct_line[i-1].size();j++)
-//        {
-//            Point3d<double> P_cover_near;
-//            Point3d<double> P_cover_far;
-//            P_cover_near.y=Direct_line[i-1][j].y+xd*deta_Y1;
-//            P_cover_far.y=Direct_line[i-1][j].y-xd*deta_Y2;
-//            if(In_points[i].y==In_points[i-1].y&&In_points[i].x!=In_points[i-1].x)
-//                deta_X1=deta_X2=0;
-//            else if(In_points[i].x==In_points[i-1].x&&In_points[i].y!=In_points[i-1].y)
-//            {
-//                deta_X1=L1*csfs/(111319.55*cos(D2R(P_cover_near.y)));
-//                deta_X2=L2*csfs/(111319.55*cos(D2R(P_cover_far.y)));
-//            }
-//            else if(In_points[i].x==In_points[i-1].x&&In_points[i].y==In_points[i-1].y)
-//            {
-//                flag=false;
-//                return false;
-//            }
-//            else
-//            {
-//                double tanAlpha = (In_points[i].y-In_points[i-1].y)/(In_points[i].x-In_points[i-1].x);
-//                deta_X1=abs((L1*sin(atan(tanAlpha)))/(111319.55*cos(D2R(P_cover_near.y))))*csfs;
-//                deta_X2=abs((L2*sin(atan(tanAlpha)))/(111319.55*cos(D2R(P_cover_far.y))))*csfs;
-//            }
-//            P_cover_near.x=Direct_line[i-1][j].x-yd*deta_X1;
-//            P_cover_far.x=Direct_line[i-1][j].x+yd*deta_X2;
-//            P_cover_near.z=P_cover_far.z=Direct_line[i-1][j].z;
-//            near_temp.push_back(P_cover_near);
-//            far_temp.push_back(P_cover_far);
-//        }
-//        Cover_beam_near.push_back(near_temp);
-//        Cover_beam_far.push_back(far_temp);
-//    }
     flag=true;
     return true;
 }
@@ -327,79 +248,6 @@ bool FlyDesign::OutSwath(const double& AD_start_,const double& AD_length_,const 
         Swath_end.push_back(end_line);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    for(size_t i=1;i<In_points.size();i++)
-//    {
-//        double deta_Y1,deta_Y2,deta_X1,deta_X2;
-//        if(In_points[i].y==In_points[i-1].y&&In_points[i].x!=In_points[i-1].x)
-//        {
-//            deta_Y1=deta_M*csfs/111319.55;
-//            deta_Y2=deta_N*csfs/111319.55;
-//        }
-//        else if(In_points[i].x==In_points[i-1].x&&In_points[i].y!=In_points[i-1].y)
-//            deta_Y1=deta_Y2=0;
-//        else if(In_points[i].x==In_points[i-1].x&&In_points[i].y==In_points[i-1].y)
-//        {
-//            flag=false;
-//            return false;
-//        }
-//        else
-//        {
-//            double tanAlpha = (In_points[i].y-In_points[i-1].y)/(In_points[i].x-In_points[i-1].x);
-//            deta_Y1=abs((deta_M*cos(atan(tanAlpha)))/111319.55)*csfs;
-//            deta_Y2=abs((deta_N*cos(atan(tanAlpha)))/111319.55)*csfs;
-//        }
-//        int xd=In_points[i-1].x<In_points[i].x?1:-1;
-//        int yd=In_points[i-1].y<In_points[i].y?1:-1;
-//        vector<Point3d<double> > start_temp;
-//        vector<Point3d<double> > end_temp;
-//        for(size_t j=0;j<Direct_line[i-1].size();j++)
-//        {
-//            Point3d<double> P_swath_start;
-//            Point3d<double> P_swath_end;
-//            P_swath_start.z=P_swath_end.z=Direct_line[i-1][j].z;
-//            P_swath_start.y=Direct_line[i-1][j].y+xd*deta_Y1;
-//            P_swath_end.y=P_swath_start.y-xd*deta_Y2;
-//            if(In_points[i].y==In_points[i-1].y&&In_points[i].x!=In_points[i-1].x)
-//                deta_X1=deta_X2=0;
-//            else if(In_points[i].x==In_points[i-1].x&&In_points[i].y!=In_points[i-1].y)
-//            {
-//                deta_X1=deta_M*csfs/(111319.55*cos(D2R(P_swath_start.y)));
-//                deta_X2=deta_N*csfs/(111319.55*cos(D2R(P_swath_end.y)));
-//            }
-//            else if(In_points[i].x==In_points[i-1].x&&In_points[i].y==In_points[i-1].y)
-//            {
-//                flag=false;
-//                return false;
-//            }
-//            else
-//            {
-//                double tanAlpha = (In_points[i].y-In_points[i-1].y)/(In_points[i].x-In_points[i-1].x);
-//                deta_X1=abs((deta_M*sin(atan(tanAlpha)))/(111319.55*cos(D2R(P_swath_start.y))))*csfs;
-//                deta_X2=abs((deta_N*sin(atan(tanAlpha)))/(111319.55*cos(D2R(P_swath_end.y))))*csfs;
-//            }
-//            P_swath_start.x=Direct_line[i-1][j].x-yd*deta_X1;
-//            P_swath_end.x=P_swath_start.x+yd*deta_X2;
-//            start_temp.push_back(P_swath_start);
-//            end_temp.push_back(P_swath_end);
-//        }
-//        Swath_start.push_back(start_temp);
-//        Swath_end.push_back(end_temp);
-//    }
     flag=true;
     return true;
 
@@ -447,4 +295,38 @@ bool FlyDesign::OutNESZ(const double& LightVs_,const double& Fre_,const double& 
     return true;
 
 }
-
+bool FlyDesign::BackStep(vector<Point3d<double> > &Air_line,vector<Point3d<double> > &Original_line)
+{
+    Point3d<double> air_mercator1 = WGS2Mercator(Air_line[0]);
+    Point3d<double> air_mercator2 = WGS2Mercator(Air_line[1]);
+    Point3d<double> P_original1,P_original2;
+    double deta_Y,deta_X;
+    if(air_mercator2.y==air_mercator1.y&&air_mercator2.x!=air_mercator1.x)
+        deta_Y=L*csfs,deta_X=0;
+    else if(air_mercator2.x==air_mercator1.x&&air_mercator2.y!=air_mercator1.y)
+        deta_Y=0,deta_X = L*csfs;
+    else if(air_mercator2.x==air_mercator1.x&&air_mercator2.y==air_mercator1.y)
+    {
+        flag=false;
+        return false;
+    }
+    else
+    {
+        double tanAlpha = (air_mercator2.y-air_mercator1.y)/(air_mercator2.x-air_mercator1.x);
+        deta_Y=abs( L*cos(atan(tanAlpha)));
+        deta_X=abs( L*sin(atan(tanAlpha)));
+    }
+    int xd=air_mercator1.x<air_mercator2.x?1:-1;
+    int yd=air_mercator1.y<air_mercator2.y?1:-1;
+    P_original1.x = air_mercator1.x-yd*deta_X;
+    P_original1.y = air_mercator1.y+xd*deta_Y;
+    P_original1.z = air_mercator1.z;
+    P_original2.x = air_mercator2.x-yd*deta_X;
+    P_original2.y = air_mercator2.y+xd*deta_Y;
+    P_original2.z = air_mercator1.z;
+    P_original1 = Mercator2WGS(P_original1);
+    P_original2 = Mercator2WGS(P_original2);
+    Original_line.push_back(P_original1);
+    Original_line.push_back(P_original2);
+    return true;
+}

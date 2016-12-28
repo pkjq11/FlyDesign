@@ -33,6 +33,7 @@ public:
                  const double& Va_,const double& NESZ_YQ_,const double& Ka_,const double& Kr_,const double& k_,
                  const double& T0_,const double& Res_,const double& TpRatio_,const double& Pfzh_,
                  vector<P_NESZ> &R_NESZ,vector<P_NESZ> &R_NESZ_YQ);                   //判断测绘带内NESZ值
+    bool BackStep(vector<Point3d<double> > &Air_line,vector<Point3d<double> > &Original_line);
 
 public:
     vector<Point3d<double> > In_points;         //输入的地面目标点集
